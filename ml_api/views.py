@@ -1,3 +1,10 @@
-from django.shortcuts import render
+from rest_framework import viewsets
 
-# Create your views here.
+from ml_api.models import AnalysisImage
+from ml_api.serializers import AnalysisImageSerializer
+
+
+
+class AnalysisImageViewSet(viewsets.ModelViewSet):
+    queryset = AnalysisImage.objects.all()
+    serializer_class = AnalysisImageSerializer
