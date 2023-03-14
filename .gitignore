@@ -1,9 +1,0 @@
-# IDE settings
-.idea
-
-# Database
-media
-db.sqlite3
-
-# ML models directory
-ml_sources.models

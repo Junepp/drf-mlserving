@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'ml_api'
+    'ml_simple_api'
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
