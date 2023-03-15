@@ -1,42 +1,18 @@
+import torch
+
+
 def load_segmentation():
-    import cv2
-    import time
-    import torch
-    import numpy as np
-    import skimage.io
-    import albumentations as albu
-    import matplotlib.pyplot as plt
+    from segmentation_models_pytorch import Unet
+    from iglovikov_helper_functions.dl.pytorch.utils import rename_layers
 
-    from iglovikov_helper_functions.utils.image_utils import load_rgb, pad, unpad
-    from iglovikov_helper_functions.dl.pytorch.utils import tensor_from_rgb_image
-    from people_segmentation.pre_trained_models import create_model
+    device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
-    model = create_model("Unet_2020-07-20")
-    model.eval()
+    model = Unet(encoder_name="timm-efficientnet-b3", classes=1, encoder_weights=None)
+    model = model.to(device)
 
-    # image = load_rgb(input_image)
+    state_dict = torch.load('ml_sources/models/model_segmentation.pth', map_location=device)['state_dict']
+    state_dict = rename_layers(state_dict, {"model.": ""})
 
-    transform = albu.Compose([albu.Normalize(p=1)], p=1)
-    padded_image, pads = pad(image, factor=32, border=cv2.BORDER_CONSTANT)
-    x = transform(image=padded_image)["image"]
-    x = torch.unsqueeze(tensor_from_rgb_image(x), 0)
+    model.load_state_dict(state_dict)
 
-    with torch.no_grad():
-        prediction = model(x)[0][0]
-
-    mask = (prediction > 0).cpu().numpy().astype(np.uint8)
-    mask = unpad(mask, pads)
-
-    mask = mask.reshape(mask.shape[0], mask.shape[1], 1)
-
-    mask = mask.reshape(mask.shape[0], mask.shape[1], 1)
-
-    for i in range(mask.shape[2]):
-        temp = skimage.io.imread(input_image)
-        for j in range(temp.shape[2]):
-            temp[:, :, j] = temp[:, :, j] * mask[:, :, i]
-        plt.figure(figsize=(8, 8))
-
-    global timestr
-    timestr = time.strftime("%Y%m%d-%H%M%S")
-    skimage.io.imsave('static/segmentation_img/' + str(timestr) + '.png', temp)
+    return model
