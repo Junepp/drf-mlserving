@@ -1,0 +1,24 @@
+# OS cache
+.DS_Store
+
+# IDE settings
+.idea
+
+
+# Database
+media
+db.sqlite3
+
+
+# ML models directory
+ml_sources/models/
+
+
+# debugging resources
+sketch.py
+sketch.ipynb
+
+
+# venv settings
+Pipfile
+Pipfile.lock
