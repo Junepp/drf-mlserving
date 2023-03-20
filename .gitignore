@@ -5,7 +5,7 @@
 .idea
 
 
-# Database
+# Data
 media
 db.sqlite3
 
@@ -22,3 +22,7 @@ sketch.ipynb
 # venv settings
 Pipfile
 Pipfile.lock
+
+
+# debugging
+debug_stage
