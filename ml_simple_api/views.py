@@ -6,16 +6,13 @@ from rest_framework.response import Response
 
 from .apps import MlSimpleApiConfig
 
-import os
-from drf_mlserving import settings
-
 
 class CallModel(APIView):
-
     def get(self, request):
         in_memory_img = request.FILES['image']
 
         img: np.ndarray = cv2.imdecode(np.frombuffer(in_memory_img.read(), np.uint8), cv2.IMREAD_UNCHANGED)
+        # print(img[0])
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
         segmentationed_img: PIL.Image.Image = MlSimpleApiConfig.executor_segmentation.execute(image=img)
@@ -23,7 +20,10 @@ class CallModel(APIView):
         classification_label: str = MlSimpleApiConfig.executor_classification.execute(image=segmentationed_img)
         output_format = f'done, class {classification_label} maybe..'
 
-        print(output_format)
+        fv = MlSimpleApiConfig.executor_extract.execute(image=segmentationed_img)
+        print(fv)
+        print(2, output_format)
+
 
         # # SAVE
         # img_name = in_memory_img.name

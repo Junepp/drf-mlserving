@@ -3,6 +3,9 @@ from typing import Optional
 import torch
 import keras
 
+from silence_tensorflow import silence_tensorflow
+silence_tensorflow()
+
 # import os
 # os.environ["CUDA_VISIBLE_DEVICES"] = '-1'  # works on windows 10 to force it to use CPU
 
@@ -20,6 +23,7 @@ def load_segmentation(device: Optional[str] = 'cpu'):
     state_dict = rename_layers(state_dict, {"model.": ""})
 
     model.load_state_dict(state_dict)
+    model.eval()
 
     return model
 

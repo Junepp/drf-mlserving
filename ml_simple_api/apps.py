@@ -10,3 +10,4 @@ class MlSimpleApiConfig(AppConfig):
 
     executor_segmentation = executors.SegmentationExecutor(device=device)
     executor_classification = executors.ClassificationExecutor(device=device)
+    executor_extract = executors.ExtractExecutor(device=device)

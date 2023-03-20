@@ -66,15 +66,14 @@ class ExtractExecutor:
         self.model = load_models.load_fv_extactor()
 
     def execute(self, image: Image.Image):
-        image = image.resize(size=(128, 256))
+        image = image.resize(size=(224, 224))
         # image = image.convert('RGB')
 
         x = tensorflow.keras.utils.img_to_array(image)
         x = np.expand_dims(x, axis=0)
-        x = np.array([x])
+        # x = np.array([x])
         # x = tensorflow.keras.applications.imagenet_utils(x)
 
-        # Extract Features
         feature_vector = self.model.predict(x)[0]
         feature_vector = feature_vector / np.linalg.norm(feature_vector)
 
