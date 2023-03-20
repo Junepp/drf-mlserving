@@ -15,14 +15,14 @@ class CallModel(APIView):
     def get(self, request):
         in_memory_img = request.FILES['image']
 
-        img: np.ndarray
-        img = cv2.imdecode(np.frombuffer(in_memory_img.read(), np.uint8), cv2.IMREAD_UNCHANGED)
+        img: np.ndarray = cv2.imdecode(np.frombuffer(in_memory_img.read(), np.uint8), cv2.IMREAD_UNCHANGED)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
         segmentationed_img: PIL.Image.Image = MlSimpleApiConfig.executor_segmentation.execute(image=img)
 
         classification_label: str = MlSimpleApiConfig.executor_classification.execute(image=segmentationed_img)
         output_format = f'done, class {classification_label} maybe..'
+
         print(output_format)
 
         # # SAVE
