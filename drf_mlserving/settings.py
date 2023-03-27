@@ -26,8 +26,12 @@ SECRET_KEY = 'django-insecure-4*^cx+se1x++(vi4lwo5ia=zpcn*s1!#58)pq%wz(d+4ojd*yi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+    "http://127.0.0.1:8000",
+]
 
 # Application definition
 
@@ -39,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'ml_simple_api'
+    'ml_simple_api',
+    'corsheaders',
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -53,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'drf_mlserving.urls'
@@ -81,8 +87,12 @@ WSGI_APPLICATION = 'drf_mlserving.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'kfashion',
+        'USER': 'postgres',
+        'PASSWORD': '151201',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 

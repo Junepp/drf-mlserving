@@ -5,10 +5,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from .apps import MlSimpleApiConfig
-
+from django.http import JsonResponse
 
 class CallModel(APIView):
-    def get(self, request):
+    def post(self, request):
         in_memory_img = request.FILES['image']
 
         img: np.ndarray = cv2.imdecode(np.frombuffer(in_memory_img.read(), np.uint8), cv2.IMREAD_UNCHANGED)
@@ -24,7 +24,45 @@ class CallModel(APIView):
         print(fv)
         print(2, output_format)
 
+        response_format = {"top3_class": {"class_1":0.5, "class_2":0.3, "class_3":0.2},
+                           "recommends": [{'productName': "맨투맨1",
+                                           'productStore': "1번 상점",
+                                           'productImg': "https://i.ibb.co/R6RwNxx/grape.jpg",
+                                           'productPrice': "132000",
+                                           'productCategory': "상의",
+                                           'productURL': "https://sammy0329.tistory.com/62"},
+                                          {'productName': "맨투맨1",
+                                           'productStore': "1번 상점",
+                                           'productImg': "https://i.ibb.co/R6RwNxx/grape.jpg",
+                                           'productPrice': "132000",
+                                           'productCategory': "상의",
+                                           'productURL': "https://sammy0329.tistory.com/62"},
+                                          {'productName': "맨투맨1",
+                                           'productStore': "1번 상점",
+                                           'productImg': "https://i.ibb.co/R6RwNxx/grape.jpg",
+                                           'productPrice': "132000",
+                                           'productCategory': "상의",
+                                           'productURL': "https://sammy0329.tistory.com/62"},
+                                          {'productName': "맨투맨1",
+                                           'productStore': "1번 상점",
+                                           'productImg': "https://i.ibb.co/R6RwNxx/grape.jpg",
+                                           'productPrice': "132000",
+                                           'productCategory': "상의",
+                                           'productURL': "https://sammy0329.tistory.com/62"},
+                                          {'productName': "맨투맨1",
+                                           'productStore': "1번 상점",
+                                           'productImg': "https://i.ibb.co/R6RwNxx/grape.jpg",
+                                           'productPrice': "132000",
+                                           'productCategory': "상의",
+                                           'productURL': "https://sammy0329.tistory.com/62"},
+                                          {'productName': "맨투맨1",
+                                           'productStore': "1번 상점",
+                                           'productImg': "https://i.ibb.co/R6RwNxx/grape.jpg",
+                                           'productPrice': "132000",
+                                           'productCategory': "상의",
+                                           'productURL': "https://sammy0329.tistory.com/62"}]}
 
+        return JsonResponse(data=response_format, json_dumps_params={'ensure_ascii':False}, status=200)
         # # SAVE
         # img_name = in_memory_img.name
         # save_path = os.path.join(settings.MEDIA_ROOT, 'user_input', img_name)
@@ -35,4 +73,6 @@ class CallModel(APIView):
         # # return Response(data=f"{img_name} uploaded well", status=200)
         # # SAVE
 
-        return Response(data=output_format)
+        # return Response(data={"success": True,
+        #                       "status": 200,
+        #                       "data": })
