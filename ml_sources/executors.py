@@ -52,11 +52,11 @@ class ClassificationExecutor:
         x = np.array([x])
 
         prediction = self.model.predict(x, verbose=0)
-        prediction = np.argmax(prediction)
+        prediction_argmax = np.argmax(prediction)
 
-        label = ['바캉스','보헤미안','섹시','스포티','오피스룩','캐주얼','트레디셔널','페미닌','힙합'][prediction]
+        # label = ['바캉스','보헤미안','섹시','스포티','오피스룩','캐주얼','트레디셔널','페미닌','힙합'][prediction]
 
-        return label
+        return prediction, prediction_argmax
 
 
 class ExtractExecutor:
