@@ -9,8 +9,8 @@
 - Front-end 리소스들은 HTML/CSS/JS에서 React를 활용해 최신 스택으로 재구성
 - 별도의 프로세스이므로 별도 저장소로 관리 (본 저장소는 Back-end 프로세스만 포함)
 - [(Front-end Repository)](https://github.com/sammy0329/K-Fashion-Refactoring.git)
-
-#### 본 API의 server-side ML 프로세스 요약
+---
+### 본 API의 server-side ML 프로세스 요약
 1. Human segmentation: 배경 정보 삭제  
 2. Classification: 파인튜닝된 Xception 모델을 통해 9개의 패션 클래스 분류(바캉스, 힙합, ..., 오피스룩, 캐주얼)
 3. Recommandation
