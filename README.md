@@ -1,19 +1,16 @@
 # K-Fashion-Refactoring
 
 ## 기존 참빛설계 K-Fashion 프로젝트 리팩토링  
-### 기존 상태 [Repository 바로가기](https://github.com/dudtjakdl/K-Fashion-Recommendation-Project)
+### 리팩토링 전 [(기존 Repository)](https://github.com/dudtjakdl/K-Fashion-Recommendation-Project.git)
 - Flask와 HTML/CSS/JS를 이용해 구현
 - Back-end/Front-end 분리되어있지 않았음, 하나의 프로젝트, 하나의 프로세스로 동작
 ### 리팩토링 후  
 - Back-end 프로세스를 Django Rest Framework로 별도의 API로 분리
 - Front-end 리소스들은 HTML/CSS/JS에서 React를 활용해 최신 스택으로 재구성
+- 별도의 프로세스이므로 별도 저장소로 관리 (본 저장소는 Back-end 프로세스만 포함)
+- [(Front-end Repository)](https://github.com/sammy0329/K-Fashion-Refactoring.git)
 
-#### 본 Repository는 분리된 Back-end API 부분이며 아래의 역할을 수행합니다.
-- Request body로 입력 이미지를 받아
-- server-side에서 ML model을 통해 스타일 분류/추천 아이템 선정
-- 분류 결과와 추천 이미지 및 메타데이터를 Response로 반환
-
-#### server-side ML 프로세스 요약
+#### 본 API의 server-side ML 프로세스 요약
 1. Human segmentation: 배경 정보 삭제  
 2. Classification: 파인튜닝된 Xception 모델을 통해 9개의 패션 클래스 분류(바캉스, 힙합, ..., 오피스룩, 캐주얼)
 3. Recommandation
